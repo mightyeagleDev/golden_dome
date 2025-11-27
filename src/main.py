@@ -7,7 +7,7 @@ SERVO_PIN = 18  # GPIO18 supports hardware PWM on Pi 5
 servo = Servo(
     18,
     min_pulse_width=0.40/1000,   # slightly lower
-    max_pulse_width=2.55/1000    # slightly higher
+    max_pulse_width=2.7/1000    # slightly higher
 )
 print("Servo ready")
 
