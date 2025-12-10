@@ -11,13 +11,14 @@ void setup() {
   Serial.begin(9600);
   myservo_x.attach(3);
   myservo_y.attach(5);
+  pinMode(2,OUTPUT);
 
   myservo_x.write(x_val);
   myservo_y.write(y_val);
 }
 
 void loop() {
-
+	digitalWrite(2,HIGH)
   if (Serial.available() > 0) {
 
     receivedString = Serial.readStringUntil('\n'); 

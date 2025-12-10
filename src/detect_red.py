@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-import serial
+#import serial
 import pyautogui
 import time
 
@@ -66,7 +66,16 @@ def main():
     #    return
  
     url = "http://10.48.134.26:8080/video"
-    cap = cv2.VideoCapture(1)
+    cap = cv2.VideoCapture(2, cv2.CAP_V4L2)
+
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 600)
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+
+    cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*"YUYV"))
+    # Increase brightness & contrast
+
+
+
 
     if not cap.isOpened():
         print("Error: Could not open webcam.")
@@ -84,16 +93,24 @@ def main():
         if current_time - last_frame_time < frame_interval:
             continue
         last_frame_time = current_time
+        
 
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
         frame_width, frame_height, _ = frame.shape
         print(frame_height, frame_width)
+# Original
+        lower_red1 = np.array([0, 120, 10])
+        upper_red1 = np.array([10, 255, 255])
+        lower_red2 = np.array([175, 120, 10])
+        upper_red2 = np.array([180, 255, 255])
 
-        lower_red1 = np.array([0, 120, 70])
+# Low-light tuning
+        '''lower_red1 = np.array([0, 80, 50])      # lower S and V
         upper_red1 = np.array([10, 255, 255])
 
-        lower_red2 = np.array([175, 120, 70])
+        lower_red2 = np.array([170, 80, 50])
         upper_red2 = np.array([180, 255, 255])
+'''
 
         mask1 = cv2.inRange(hsv, lower_red1, upper_red1)
         mask2 = cv2.inRange(hsv, lower_red2, upper_red2)
