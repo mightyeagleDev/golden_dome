@@ -67,7 +67,7 @@ class PID:
         # Derivative term
         derivative = (error - self.prev_error) / dt
 
-        # PID output
+        # PID outputsS
         output = (
             self.kp * error +
             self.ki * self.integral +
